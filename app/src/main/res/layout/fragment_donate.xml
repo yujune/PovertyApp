@@ -54,7 +54,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/otheramount"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonfive" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonfive"
+/>
 
     <Button
         android:id="@+id/buttonfive"
@@ -66,7 +67,8 @@
         android:onClick="five"
         android:text="@string/Five"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAmout" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAmout"
+        android:background="@color/tabUnSelectedIconColor"/>
 
     <Button
         android:id="@+id/buttonten"
@@ -75,7 +77,8 @@
         android:text="@string/ten"
         app:layout_constraintBottom_toBottomOf="@+id/buttonfive"
         app:layout_constraintStart_toEndOf="@+id/buttonfive"
-        app:layout_constraintTop_toTopOf="@+id/buttonfive" />
+        app:layout_constraintTop_toTopOf="@+id/buttonfive"
+        android:background="@color/tabUnSelectedIconColor"/>
 
     <TextView
         android:id="@+id/textViewmethod"
@@ -97,7 +100,8 @@
         android:layout_marginTop="16dp"
         android:text="@string/online"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewmethod" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewmethod"
+        android:background="@color/tabUnSelectedIconColor"/>
 
     <Button
         android:id="@+id/buttoncredit"
@@ -108,7 +112,8 @@
         android:text="@string/credit"
         app:layout_constraintBottom_toBottomOf="@+id/buttononline"
         app:layout_constraintStart_toEndOf="@+id/buttononline"
-        app:layout_constraintTop_toTopOf="@+id/buttononline" />
+        app:layout_constraintTop_toTopOf="@+id/buttononline"
+        android:background="@color/tabUnSelectedIconColor"/>
 
     <TextView
         android:id="@+id/textViewAmount"
@@ -136,6 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fifty"
+        android:background="@color/tabUnSelectedIconColor"
         app:layout_constraintBottom_toBottomOf="@+id/buttonten"
         app:layout_constraintStart_toEndOf="@+id/buttonten"
         app:layout_constraintTop_toTopOf="@+id/buttonten" />

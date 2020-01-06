@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
@@ -29,7 +31,6 @@ class Login : AppCompatActivity() {
         button_Login.setOnClickListener {
             login()
         }
-
 
     }
 
@@ -58,9 +59,27 @@ class Login : AppCompatActivity() {
                             jsonUser.getString("password"))
 
 
+
                         Toast.makeText(applicationContext, "Welcome " + jsonUser.getString("name") + "!", Toast.LENGTH_LONG).show()
+
+                        //Bundle Start here
+                        /*var manager:FragmentManager=supportFragmentManager
+                        var t: FragmentTransaction=manager.beginTransaction()
+                        var profilefragment = ProfileFragment()
+                        var bundle = Bundle()
+                        bundle.putString("Name",jsonUser.getString("name"))
+                        profilefragment.setArguments(bundle)
+                        t.add(R.id.profileFragmentLayout, profilefragment);
+                        t.commit()*/
+                        //Bundle ends
+                        /*var bundle = Bundle()
+                        bundle.putString("Name",jsonUser.getString("name"))
+                        var profilefragment = ProfileFragment()
+                        profilefragment.setArguments(bundle)*/
+
+
                         val intent = Intent(this, MainActivity::class.java)
-                        startActivityForResult(intent, 1)
+                        startActivity(intent)
                     }
                 }catch (e:Exception){
                     Log.d("Main", "Response: %s".format(e.message.toString()))

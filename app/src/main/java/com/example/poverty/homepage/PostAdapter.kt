@@ -82,7 +82,7 @@ class PostAdapter internal constructor(context: Context) :
 
             likeButton.setOnLikeListener(object: OnLikeListener {
                 override fun liked(likeButton: LikeButton?) {
-                    Toast.makeText(itemView.context, "Liked!!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.context, "Liked", Toast.LENGTH_SHORT).show()
                     onLikeButtonClick?.invoke(posts.get(position))
                     //var position:Int = adapterPosition
                     //listener.onUpdateClick(position)
@@ -91,7 +91,7 @@ class PostAdapter internal constructor(context: Context) :
                 }
 
                 override fun unLiked(likeButton: LikeButton?) {
-                    Toast.makeText(itemView.context, "Unliked!!!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(itemView.context, "Disliked", Toast.LENGTH_SHORT).show()
                     onUnLikeButtonClick?.invoke(posts.get(position))
                 }
 

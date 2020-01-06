@@ -87,6 +87,11 @@ class HomeFragment : Fragment( ) {
         }
 
         adapter?.onUnLikeButtonClick={post->
+            var numberLike = post.postLikes
+            //homeViewModel.addLikes(numberLike)
+            numberLike-=1
+            var newPost=RecycleViewPost(post.postID,numberLike,post.posttitle,post.postsubtitle,post.postDate,post.postdesc,post.postImg)
+            homeViewModel.updatePost(newPost)
 
         }
 

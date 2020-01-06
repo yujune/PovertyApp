@@ -2,6 +2,7 @@ package com.example.poverty
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,22 +26,34 @@ class DonateFragment : Fragment() {
 
 
         val five = v.findViewById<View>(R.id.buttonfive) as Button
+        val ten = v.findViewById<View>(R.id.buttonten) as Button
+        val fifty = v.findViewById<View>(R.id.buttonfifty) as Button
         five.setOnClickListener {
             editTextAmount.setText("5.00");
+            ten.setBackgroundColor(getResources().getColor(R.color.tabUnSelectedIconColor))
+            fifty.setBackgroundColor(getResources().getColor(R.color.tabUnSelectedIconColor))
+            five.setBackgroundColor(getResources().getColor(R.color.colorAccent))
             textViewPAY.text = five.text;
-        }
-        val ten = v.findViewById<View>(R.id.buttonten) as Button
-        ten.setOnClickListener {
-            editTextAmount.setText("10.00");
-            textViewPAY.text = ten.text;
-        }
-        val fifty = v.findViewById<View>(R.id.buttonfifty) as Button
-        fifty.setOnClickListener {
-            editTextAmount.setText("50.00");
-            textViewPAY.text = fifty.text;
         }
 
         val textView = v.findViewById<View>(R.id.editTextAmount) as TextView
+        ten.setOnClickListener{
+            editTextAmount.setText("10.00");
+            five.setBackgroundColor(getResources().getColor(R.color.tabUnSelectedIconColor))
+            fifty.setBackgroundColor(getResources().getColor(R.color.tabUnSelectedIconColor))
+            ten.setBackgroundColor(getResources().getColor(R.color.colorAccent))
+            textViewPAY.text = ten.text;
+        }
+
+        fifty.setOnClickListener {
+            editTextAmount.setText("50.00");
+            five.setBackgroundColor(getResources().getColor(R.color.tabUnSelectedIconColor))
+            ten.setBackgroundColor(getResources().getColor(R.color.tabUnSelectedIconColor))
+            fifty.setBackgroundColor(getResources().getColor(R.color.colorAccent))
+            textViewPAY.text = fifty.text;
+        }
+
+
         textView.setOnClickListener {
             textViewPAY.text = textView.text
         }
