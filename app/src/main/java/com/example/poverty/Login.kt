@@ -32,6 +32,7 @@ class Login : AppCompatActivity() {
             login()
         }
 
+
     }
 
     private fun login() {
@@ -59,27 +60,20 @@ class Login : AppCompatActivity() {
                             jsonUser.getString("password"))
 
 
-
                         Toast.makeText(applicationContext, "Welcome " + jsonUser.getString("name") + "!", Toast.LENGTH_LONG).show()
-
-                        //Bundle Start here
-                        /*var manager:FragmentManager=supportFragmentManager
-                        var t: FragmentTransaction=manager.beginTransaction()
-                        var profilefragment = ProfileFragment()
+                        /*var manager: FragmentManager =supportFragmentManager
+                        var t: FragmentTransaction =manager.beginTransaction()
                         var bundle = Bundle()
-                        bundle.putString("Name",jsonUser.getString("name"))
-                        profilefragment.setArguments(bundle)
-                        t.add(R.id.profileFragmentLayout, profilefragment);
-                        t.commit()*/
-                        //Bundle ends
-                        /*var bundle = Bundle()
-                        bundle.putString("Name",jsonUser.getString("name"))
+                        bundle.putString("Namesss",jsonUser.getString("name"))
+
                         var profilefragment = ProfileFragment()
-                        profilefragment.setArguments(bundle)*/
-
-
+                        //profilefragment.setArguments(bundle)
+                        profilefragment.arguments=bundle
+                        var h= bundle.getString("Namesss")
+                        Log.d("TAG", "New "+profilefragment.arguments.toString())
+                        t.commit()*/
                         val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+                        startActivityForResult(intent, 1)
                     }
                 }catch (e:Exception){
                     Log.d("Main", "Response: %s".format(e.message.toString()))

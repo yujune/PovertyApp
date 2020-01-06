@@ -168,6 +168,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
          */
+
+
     }
 
 
@@ -231,6 +233,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
 
     }
+
+
 
 
     /*
