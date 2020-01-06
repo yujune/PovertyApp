@@ -3,6 +3,7 @@ package com.example.poverty
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.PorterDuff
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -13,7 +14,9 @@ import com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -35,6 +38,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -59,12 +64,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Toast.makeText(this, "Donate History", Toast.LENGTH_SHORT).show()
                 view_pager.currentItem = 1
             }
-            R.id.nav_item_three -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+            R.id.nav_item_three -> {
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
+            }
             R.id.nav_item_four -> {
                 Toast.makeText(this, "About Us", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, AboutUs::class.java)
+                val intent = Intent(this,AboutUs::class.java)
                 startActivity(intent)
             }
+            R.id.nav_item_five -> {
+            Toast.makeText(this, "Feedback", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_item_six -> {
+                Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this,Login::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_item_seven -> {
+                Toast.makeText(this, "Switch Account", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this,Login::class.java)
+                startActivity(intent)
+            }
+
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -159,80 +180,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         //Initialise variables and UI
 
+        val a1 = findViewById<NavigationView>(R.id.navView)
+        val a2 = a1.getHeaderView(0)
+        var a3 = a2.findViewById<TextView>(R.id.nav_header_textView)
+        val sharedPref : SharedPreferences = getSharedPreferences("PREF", Context.MODE_PRIVATE)
+        val sharedPref2 : SharedPreferences = getSharedPreferences("PREF2", Context.MODE_PRIVATE)
+        a3.setText(sharedPref.getString("PREF",""))
+        a3 = a2.findViewById<TextView>(R.id.textView2)
+        a3.setText(sharedPref2.getString("PREF2",""))
 
 
-        /* XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-        fab.setOnClickListener { view ->
-            val intent = Intent(this, register::class.java)
-            startActivityForResult(intent, REQUEST_CODE)
-        }
 
-         */
 
 
     }
 
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == REQUEST_CODE){
-            if(resultCode == Activity.RESULT_OK){
-                data?.let{
-                    val user = User(it.getStringExtra(register.EXTRA_EMAIL), it.getStringExtra(register.EXTRA_NAME), it.getStringExtra(register.EXTRA_PASS))
-                    createUser(user)
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun createUser(user: User) {
-        val url = getString(R.string.url_server) + getString(R.string.url_user_create) + "?name=" + user.name +
-                "&email=" + user.email +
-                "&password=" + user.password
-
-
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            Response.Listener { response ->
-                // Process the JSON
-                try{
-                    if(response != null){
-                        val success: String = response.get("success").toString()
-
-                        if(success.equals("1")){
-                            Toast.makeText(applicationContext, "Record saved", Toast.LENGTH_LONG).show()
-                            //Add record to user list
-                            userList.add(user)
-                        }else{
-                            Toast.makeText(applicationContext, "Record not saved", Toast.LENGTH_LONG).show()
-                        }
-                        progress.visibility = View.GONE
-                    }
-                }catch (e:Exception){
-                    Log.d("Main", "Response: %s".format(e.message.toString()))
-                    progress.visibility = View.GONE
-
-                }
-            },
-            Response.ErrorListener { error ->
-                Log.d("Main", "Response: %s".format(error.message.toString()))
-                progress.visibility = View.GONE
-            }
-        )
-
-        //Volley request policy, only one time request
-        jsonObjectRequest.retryPolicy = DefaultRetryPolicy(
-            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
-            0, //no retry
-            1f
-        )
-
-        // Access the RequestQueue through your singleton class.
-        jsonObjectRequest.tag = TAG
-        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
-
-    }
 
 
 

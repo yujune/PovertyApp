@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
@@ -16,16 +14,26 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONArray
 import org.json.JSONObject
+import android.R.id.edit
+import android.content.SharedPreferences
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.content.Context
+
+
+
+
 
 class Login : AppCompatActivity() {
-
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         button_CreateNewAccount.setOnClickListener {
             val intent = Intent(this, register::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 1)
         }
 
         button_Login.setOnClickListener {
@@ -59,19 +67,20 @@ class Login : AppCompatActivity() {
                             jsonUser.getString("email"),
                             jsonUser.getString("password"))
 
+                        val sharedPref : SharedPreferences = getSharedPreferences("PREF", Context.MODE_PRIVATE)
+                        val editor = sharedPref.edit()
+                        editor.putString("PREF", jsonUser.getString("name"))
+                        editor.apply()
+                        val sharedPref2 : SharedPreferences = getSharedPreferences("PREF2", Context.MODE_PRIVATE)
+                        val editor2 = sharedPref2.edit()
+                        editor2.putString("PREF2", jsonUser.getString("email"))
+                        editor2.apply()
+                        val sharedPref3 : SharedPreferences = getSharedPreferences("PREF3", Context.MODE_PRIVATE)
+                        val editor3 = sharedPref3.edit()
+                        editor3.putString("PREF3", jsonUser.getString("password"))
+                        editor3.apply()
 
                         Toast.makeText(applicationContext, "Welcome " + jsonUser.getString("name") + "!", Toast.LENGTH_LONG).show()
-                        /*var manager: FragmentManager =supportFragmentManager
-                        var t: FragmentTransaction =manager.beginTransaction()
-                        var bundle = Bundle()
-                        bundle.putString("Namesss",jsonUser.getString("name"))
-
-                        var profilefragment = ProfileFragment()
-                        //profilefragment.setArguments(bundle)
-                        profilefragment.arguments=bundle
-                        var h= bundle.getString("Namesss")
-                        Log.d("TAG", "New "+profilefragment.arguments.toString())
-                        t.commit()*/
                         val intent = Intent(this, MainActivity::class.java)
                         startActivityForResult(intent, 1)
                     }
