@@ -83,7 +83,7 @@ class Login : AppCompatActivity() {
             },
             Response.ErrorListener { error ->
                 Log.d("Main", "Response: %s".format(error.message.toString()))
-                Toast.makeText(applicationContext, "Please type your email and password", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Please retype your email and password", Toast.LENGTH_LONG).show()
             }
         )
 

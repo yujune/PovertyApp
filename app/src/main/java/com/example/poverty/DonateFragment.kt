@@ -28,6 +28,14 @@ class DonateFragment : Fragment() {
         val five = v.findViewById<View>(R.id.buttonfive) as Button
         val ten = v.findViewById<View>(R.id.buttonten) as Button
         val fifty = v.findViewById<View>(R.id.buttonfifty) as Button
+        val six = v.findViewById<View>(R.id.buttoncredit) as Button
+        six.setOnClickListener {
+            val intent = Intent(requireActivity(), second::class.java)
+            // start your next activity
+            intent.putExtra("Name",textViewPAY.text
+                .toString())
+            startActivity(intent)
+        }
         five.setOnClickListener {
             editTextAmount.setText("5.00");
             ten.setBackgroundColor(getResources().getColor(R.color.tabUnSelectedIconColor))
@@ -58,12 +66,7 @@ class DonateFragment : Fragment() {
             textViewPAY.text = textView.text
         }
 
-        val credit = v.findViewById<View>(R.id.buttoncredit) as Button
-        credit.setOnClickListener {
-            val intent = Intent(requireActivity(), second::class.java)
-            // start your next activity
-            requireActivity().startActivity(intent)
-        }
+
         val paypal1 = v.findViewById<View>(R.id.buttononline) as Button
         paypal1.setOnClickListener {
             val intent = Intent(requireActivity(), paypal::class.java)

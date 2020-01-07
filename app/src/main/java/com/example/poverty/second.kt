@@ -62,6 +62,9 @@ class second : AppCompatActivity() {
             // start your next activity
             startActivity(intent)
         }
+        val intent=intent
+        val name:String=intent?.getStringExtra("Name").toString()
+        textViewtotal1.setText(name)
 
     }
     private fun error(){
