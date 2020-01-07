@@ -54,6 +54,7 @@ class PostAdapter internal constructor(context: Context) :
 
         val buttonShares: Button = itemView.findViewById(R.id.buttonShare)
         val buttonDonate: Button = itemView.findViewById(R.id.buttonDonate)
+        val buttonDetails: Button = itemView.findViewById(R.id.buttonToDetails)
         val likeButton: LikeButton = itemView.findViewById(R.id.thumb_button)
 
         //val buttonToDeatails:Button =itemView.findViewById(R.id.)
@@ -77,6 +78,17 @@ class PostAdapter internal constructor(context: Context) :
             buttonDonate.setOnClickListener {
                 onDonateButtonClick?.invoke(posts.get(position))
                 posts.get(position).postLikes
+            }
+
+            buttonDetails.setOnClickListener {
+                val intent = Intent(itemView.context,PostDetails::class.java)
+                //val options : ActivityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this@MainActivity)
+                intent.putExtra(POST_TITLE_KEY,posted?.posttitle)
+                intent.putExtra(POST_IMAGE_KEY,posted?.postImg)
+                intent.putExtra(POST_DESC_KEY,posted?.postdesc)
+                intent.putExtra(POST_DATE_KEY,posted?.postDate)
+                itemView.context.startActivity(intent)
+                Animatoo.animateZoom(it.context)
             }
 
 

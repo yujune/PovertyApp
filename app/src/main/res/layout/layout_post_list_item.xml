@@ -81,7 +81,7 @@
                 android:visibility="visible" />
 
             <Button
-                android:id="@+id/buttonComment"
+                android:id="@+id/buttonToDetails"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -91,7 +91,7 @@
                 android:drawableLeft="@drawable/ic_info_outline_black_24dp"
                 android:text="Details"
                 android:textAlignment="center"
-                android:visibility="invisible" />
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/buttonShare"
