@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    //blury image
+    compile 'jp.wasabeef:blurry:3.0.0'
 
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
 

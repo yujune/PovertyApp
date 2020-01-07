@@ -20,6 +20,7 @@ class register : AppCompatActivity() {
         button_register.setOnClickListener {
             saveUser()
         }
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_actionback_24dp)
     }
 
     private fun saveUser(){

@@ -4,25 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
-import org.json.JSONArray
 import org.json.JSONObject
-import android.R.id.edit
 import android.content.SharedPreferences
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.content.Context
-
-
-
+import jp.wasabeef.blurry.Blurry
 
 
 class Login : AppCompatActivity() {
@@ -31,6 +22,7 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //Blurry.with(this).capture(imageViewLogin).into(imageViewLogin)
         button_CreateNewAccount.setOnClickListener {
             val intent = Intent(this, register::class.java)
             startActivityForResult(intent, 1)
