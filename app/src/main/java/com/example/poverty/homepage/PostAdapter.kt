@@ -27,7 +27,9 @@ import androidx.viewpager.widget.ViewPager
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.like.LikeButton
 import com.like.OnLikeListener
+import com.squareup.picasso.Callback
 import kotlinx.android.synthetic.main.layout_post_list_item.view.*
+import kotlinx.coroutines.delay
 
 
 class PostAdapter internal constructor(context: Context) :
@@ -125,6 +127,7 @@ class PostAdapter internal constructor(context: Context) :
         val postSubtitle: TextView = itemView.findViewById(R.id.post_desc)
         val postImage: ImageView = itemView.findViewById(R.id.post_image)
         val postLikes :TextView = itemView.findViewById(R.id.textViewLikeNumber)
+        val prograssBarImage: ProgressBar = itemView.findViewById(R.id.progressBarImage)
 
 
 
@@ -143,7 +146,7 @@ class PostAdapter internal constructor(context: Context) :
         }*/
     }
 
-    fun PostAdapter(exampleList:ArrayList<RecycleViewPost> ){posts = exampleList}
+    //fun PostAdapter(exampleList:ArrayList<RecycleViewPost> ){posts = exampleList}
 
     //telling recycle view to create different view holder in the list
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -163,9 +166,25 @@ class PostAdapter internal constructor(context: Context) :
         holder.postTitle.text = current.posttitle
         holder.postSubtitle.text = current.postsubtitle
         holder.postLikes.text = current.postLikes.toString()
+        holder.prograssBarImage.setVisibility(View.VISIBLE)
+        //Thread.sleep(20000)
 
         val thumbnailImage = holder?.itemView?.post_image
-        Picasso.with(holder.itemView.context).load(current.postImg).into(thumbnailImage)
+        Picasso.with(holder.itemView.context).load(current.postImg).into(thumbnailImage,object:Callback{
+
+
+            override fun onSuccess() {
+                holder.prograssBarImage.setVisibility(View.GONE)
+                Toast.makeText(holder.itemView.context, "Image Loaded Successfully", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onError() {
+                holder.prograssBarImage.setVisibility(View.GONE)
+                Toast.makeText(holder.itemView.context, "Error loading image", Toast.LENGTH_SHORT).show()
+                holder.postImage.setImageResource(R.drawable.ic_error_outline_black_150dp)
+            }
+
+        })
         /*when(holder){
             is PostViewHolder->{
                 holder.bind(posts.get(position))

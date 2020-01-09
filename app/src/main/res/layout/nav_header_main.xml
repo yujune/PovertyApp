@@ -23,12 +23,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="Jacky Chan"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:text="@string/drawerName"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="jackychan@gmail.com" />
+        android:text="@string/DrawerEmail"
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>

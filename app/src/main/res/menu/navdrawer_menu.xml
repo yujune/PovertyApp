@@ -9,8 +9,8 @@
             android:icon="@drawable/ic_account_circle_1746136_48dp"
             android:title="Profile" />
         <item android:id="@+id/nav_item_two"
-            android:icon="@drawable/ic_history_black_24dp"
-            android:title="Donate History" />
+            android:icon="@drawable/ic_attach_money_1746136_48dp"
+            android:title="Donate" />
 
     </group>
 

@@ -102,6 +102,17 @@
     <string name="cancel">Cancel</string>
     <string name="ProfileName">Name:</string>
     <string name="totalamount1">Total Amount</string>
+    <string name="drawerName">Name</string>
+    <string name="DrawerEmail" >Email</string>
+    <string name="ButtonDonate">Donate</string>
+    <string name="ButtonDetails">Details</string>
+    <string name="ButtonShares">Share</string>
+    <string name="PostTitle">The Title of a Blog</string>
+    <string name="postdesc">subtitle</string>
+    <string name="Number">0</string>
+    <string name="postDetailsDesc">desc</string>
+    <string name="PostDetailsImage">DetailImage</string>
+    <string name="PostImage" >Post Image</string>
 
 
 </resources>

@@ -24,6 +24,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         val sharedPref : SharedPreferences = requireActivity().getSharedPreferences("PREF", Context.MODE_PRIVATE)
         val sharedPref2 : SharedPreferences = requireActivity().getSharedPreferences("PREF2", Context.MODE_PRIVATE)
+        activity!!.getSharedPreferences("PREF",Context.MODE_PRIVATE)
         val inf = inflater.inflate(R.layout.fragment_profile,container,false)
         val tv = inf.findViewById<TextView>(R.id.textView_proName)
         val tv2 = inf.findViewById<TextView>(R.id.textView_proEmail)
