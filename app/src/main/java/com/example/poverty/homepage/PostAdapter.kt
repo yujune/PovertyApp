@@ -175,7 +175,7 @@ class PostAdapter internal constructor(context: Context) :
 
             override fun onSuccess() {
                 holder.prograssBarImage.setVisibility(View.GONE)
-                Toast.makeText(holder.itemView.context, "Image Loaded Successfully", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(holder.itemView.context, "Image Loaded Successfully", Toast.LENGTH_SHORT).show()
             }
 
             override fun onError() {
