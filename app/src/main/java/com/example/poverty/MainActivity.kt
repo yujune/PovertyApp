@@ -189,10 +189,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         a3 = a2.findViewById<TextView>(R.id.textView2)
         a3.setText(sharedPref2.getString("PREF2",""))
 
-
-
-
-
     }
 
 
@@ -209,7 +205,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object{
         const val TAG = "com.example.poverty"
     }
-    }
+
+
+
+}
 
 
 

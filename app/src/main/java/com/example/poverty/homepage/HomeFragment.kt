@@ -4,12 +4,17 @@ package com.example.poverty.homepage
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
+import android.widget.Toast.LENGTH_SHORT
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -47,22 +52,26 @@ class HomeFragment : Fragment( ) {
         val binding: FragmentHomeBinding= DataBindingUtil.inflate(
             inflater, R.layout.fragment_home, container, false)
 
-        val adapter = activity?.let { PostAdapter(it) }
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        val topSpacingItemDecoration = TopSpacingItemDecoration(50)
-        binding.recyclerView.addItemDecoration(topSpacingItemDecoration)
+        if(isConnected()) {
 
-        //Initialize ViewModel
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
-        //Any changes in Recycler View, it will observe , it observe allPost, if allPost has changed, then
-        homeViewModel.allPost.observe(viewLifecycleOwner, Observer {
-            // Update the cached copy of the users in the adapter
-                postIschanged -> postIschanged?.let { adapter?.setPosts(it) }
-        })
+            val adapter = activity?.let { PostAdapter(it) }
+            binding.recyclerView.adapter = adapter
+            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+            val topSpacingItemDecoration = TopSpacingItemDecoration(50)
+            binding.recyclerView.addItemDecoration(topSpacingItemDecoration)
 
-        /*adapter?.setOnItemClickListener(object: PostAdapter.OnItemClickListener{
+            //Initialize ViewModel
+            homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+
+            //Any changes in Recycler View, it will observe , it observe allPost, if allPost has changed, then
+            homeViewModel.allPost.observe(viewLifecycleOwner, Observer {
+                // Update the cached copy of the users in the adapter
+                    postIschanged ->
+                postIschanged?.let { adapter?.setPosts(it) }
+            })
+
+            /*adapter?.setOnItemClickListener(object: PostAdapter.OnItemClickListener{
             override fun onUpdateClick(position: Int) {
 
 
@@ -70,29 +79,48 @@ class HomeFragment : Fragment( ) {
 
         })*/
 
-        adapter?.onDonateButtonClick ={post->
-            Log.d("TAG", post.posttitle)
-            activity?.view_pager?.currentItem  = 1
+            adapter?.onDonateButtonClick = { post ->
+                Log.d("TAG", post.posttitle)
+                activity?.view_pager?.currentItem = 1
 
-        }
+            }
 
-        adapter?.onLikeButtonClick ={post->
-            Log.d("TAG", post.posttitle)
-            var numberLike = post.postLikes
-            //homeViewModel.addLikes(numberLike)
-            numberLike+=1
-            var newPost=RecycleViewPost(post.postID,numberLike,post.posttitle,post.postsubtitle,post.postDate,post.postdesc,post.postImg)
-            homeViewModel.updatePost(newPost)
+            adapter?.onLikeButtonClick = { post ->
+                Log.d("TAG", post.posttitle)
+                var numberLike = post.postLikes
+                //homeViewModel.addLikes(numberLike)
+                numberLike += 1
+                var newPost = RecycleViewPost(
+                    post.postID,
+                    numberLike,
+                    post.posttitle,
+                    post.postsubtitle,
+                    post.postDate,
+                    post.postdesc,
+                    post.postImg
+                )
+                homeViewModel.updatePost(newPost)
 
-        }
+            }
 
-        adapter?.onUnLikeButtonClick={post->
-            var numberLike = post.postLikes
-            //homeViewModel.addLikes(numberLike)
-            numberLike-=1
-            var newPost=RecycleViewPost(post.postID,numberLike,post.posttitle,post.postsubtitle,post.postDate,post.postdesc,post.postImg)
-            homeViewModel.updatePost(newPost)
+            adapter?.onUnLikeButtonClick = { post ->
+                var numberLike = post.postLikes
+                //homeViewModel.addLikes(numberLike)
+                numberLike -= 1
+                var newPost = RecycleViewPost(
+                    post.postID,
+                    numberLike,
+                    post.posttitle,
+                    post.postsubtitle,
+                    post.postDate,
+                    post.postdesc,
+                    post.postImg
+                )
+                homeViewModel.updatePost(newPost)
 
+            }
+        }else{
+            Toast.makeText(activity?.applicationContext,"Network Error",LENGTH_LONG)
         }
 
 
@@ -152,20 +180,11 @@ class HomeFragment : Fragment( ) {
         return binding.root
     }
 
-
-
-
-
-    /*override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = PostAdapter()
-    }*/
-
-
-
-
+    private fun isConnected(): Boolean{
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        return activeNetwork?.isConnectedOrConnecting == true
+    }
 
 
 }

@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +24,7 @@ import kotlin.coroutines.coroutineContext
 import android.util.Log
 import android.widget.*
 import androidx.core.app.ActivityOptionsCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startActivity
 import androidx.viewpager.widget.ViewPager
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
@@ -31,25 +34,15 @@ import com.squareup.picasso.Callback
 import kotlinx.android.synthetic.main.layout_post_list_item.view.*
 import kotlinx.coroutines.delay
 
-
 class PostAdapter internal constructor(context: Context) :
     RecyclerView.Adapter<PostAdapter.PostViewHolder>(){
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var posts = emptyList<RecycleViewPost>() // Cached copy of words
-    //private lateinit var mListerner :OnItemClickListener
     var onDonateButtonClick: ((RecycleViewPost) -> Unit)? = null
     var onLikeButtonClick: ((RecycleViewPost) -> Unit)? = null
     var onUnLikeButtonClick :((RecycleViewPost) -> Unit)? = null
 
-    interface OnItemClickListener{
-        fun onUpdateClick(position: Int)
-    }
-
-    /*fun setOnItemClickListener(listener:OnItemClickListener){
-        mListerner = listener
-
-    }*/
 
     inner class PostViewHolder(itemView: View,var posted:RecycleViewPost?=null) : RecyclerView.ViewHolder(itemView) {
 
@@ -58,8 +51,6 @@ class PostAdapter internal constructor(context: Context) :
         val buttonDonate: Button = itemView.findViewById(R.id.buttonDonate)
         val buttonDetails: Button = itemView.findViewById(R.id.buttonToDetails)
         val likeButton: LikeButton = itemView.findViewById(R.id.thumb_button)
-
-        //val buttonToDeatails:Button =itemView.findViewById(R.id.)
 
         init{
             itemView.setOnClickListener {
@@ -100,7 +91,6 @@ class PostAdapter internal constructor(context: Context) :
                     onLikeButtonClick?.invoke(posts.get(position))
                     //var position:Int = adapterPosition
                     //listener.onUpdateClick(position)
-
 
                 }
 
@@ -144,6 +134,7 @@ class PostAdapter internal constructor(context: Context) :
                 .load(post.postImg)
                 .into(postImage)
         }*/
+
     }
 
     //fun PostAdapter(exampleList:ArrayList<RecycleViewPost> ){posts = exampleList}
@@ -167,24 +158,25 @@ class PostAdapter internal constructor(context: Context) :
         holder.postSubtitle.text = current.postsubtitle
         holder.postLikes.text = current.postLikes.toString()
         holder.prograssBarImage.setVisibility(View.VISIBLE)
-        //Thread.sleep(20000)
 
         val thumbnailImage = holder?.itemView?.post_image
-        Picasso.with(holder.itemView.context).load(current.postImg).into(thumbnailImage,object:Callback{
 
 
-            override fun onSuccess() {
-                holder.prograssBarImage.setVisibility(View.GONE)
-                //Toast.makeText(holder.itemView.context, "Image Loaded Successfully", Toast.LENGTH_SHORT).show()
-            }
+            Picasso.with(holder.itemView.context).load(current.postImg).into(thumbnailImage,object:Callback{
 
-            override fun onError() {
-                holder.prograssBarImage.setVisibility(View.GONE)
-                Toast.makeText(holder.itemView.context, "Error loading image", Toast.LENGTH_SHORT).show()
-                holder.postImage.setImageResource(R.drawable.ic_error_outline_black_150dp)
-            }
+                override fun onSuccess() {
+                    holder.prograssBarImage.setVisibility(View.GONE)
+                    //Toast.makeText(holder.itemView.context, "Image Loaded Successfully", Toast.LENGTH_SHORT).show()
+                }
 
-        })
+                override fun onError() {
+                    holder.prograssBarImage.setVisibility(View.GONE)
+                    Toast.makeText(holder.itemView.context, "Error loading image", Toast.LENGTH_SHORT).show()
+                    holder.postImage.setImageResource(R.drawable.ic_error_outline_black_150dp)
+                }
+
+            })
+
         /*when(holder){
             is PostViewHolder->{
                 holder.bind(posts.get(position))
@@ -211,7 +203,9 @@ class PostAdapter internal constructor(context: Context) :
         const val POST_DATE_KEY= "com.example.poverty.homepage.POSTDATE"
     }
 
+
 }
+
 
 
 

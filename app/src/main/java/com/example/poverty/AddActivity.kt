@@ -18,6 +18,7 @@ class AddActivity : AppCompatActivity() {
         }
     }
 
+
     private fun saveUser(){
 
         if(TextUtils.isEmpty(editTextName.text)){
