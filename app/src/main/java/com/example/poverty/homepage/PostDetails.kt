@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.example.poverty.R
+import com.example.poverty.databinding.ActivityPostDetailsBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,13 +16,15 @@ import kotlinx.android.synthetic.main.activity_post_details.*
 
 class PostDetails : AppCompatActivity() {
 
+    private lateinit var binding: ActivityPostDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_details)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_post_details)
 
         val navigationVarTitle = intent.getStringExtra(PostAdapter.POST_TITLE_KEY)
         supportActionBar?.setTitle(navigationVarTitle)
-        textViewLabelTitle.setText(navigationVarTitle)
+        binding.textViewLabelTitle.setText(navigationVarTitle)
         val navigationVarImage = intent.getStringExtra(PostAdapter.POST_IMAGE_KEY)
         Picasso.with(applicationContext).load(navigationVarImage).into(imageViewPostDetails);
         /*progressBarDetailsImg.setVisibility(View.VISIBLE)
@@ -39,13 +43,13 @@ class PostDetails : AppCompatActivity() {
         })*/
         //imageViewPostDetails.set
         val navigationVarDesc = intent.getStringExtra(PostAdapter.POST_DESC_KEY)
-        textViewDetailsDes.setText(navigationVarDesc)
+        binding.textViewDetailsDes.setText(navigationVarDesc)
         val navigationVarDate = intent.getStringExtra(PostAdapter.POST_DATE_KEY)
-        textViewDetailsDate.setText(navigationVarDate)
+        binding.textViewDetailsDate.setText(navigationVarDate)
         //supportActionBar.set
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_actionback_24dp)
 
-        buttonView.setOnClickListener {
+        binding.buttonView.setOnClickListener {
             onclick(it)
         }
 
